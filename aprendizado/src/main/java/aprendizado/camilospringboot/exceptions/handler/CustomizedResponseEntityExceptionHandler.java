@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import aprendizado.camilospringboot.exceptions.ExceptionsResponse;
 import aprendizado.camilospringboot.exceptions.OperacaoSemSuporte;
+import aprendizado.camilospringboot.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 @RestController
@@ -29,6 +30,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		
 		ExceptionsResponse exceptionResponse = new ExceptionsResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(exceptionResponse,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public final ResponseEntity<ExceptionsResponse> handleNotFoundExceptionExceptions(Exception ex, WebRequest request) {
+		
+		ExceptionsResponse exceptionResponse = new ExceptionsResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
 	}
 
 }

@@ -1,34 +1,20 @@
-package aprendizado.camilospringboot.model;
+package aprendizado.camilospringboot.data.vo.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name ="person")
-public class Person implements Serializable{
+public class PersonVO implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)//Gera ids automaticos
-		private Long id;
-		@Column(name = "first_name", nullable=false, length=80)
-		private String firstName;
-		@Column(name = "last_name",nullable=false, length=80)
-		private String lastName;
-		@Column(nullable=false, length=80) //se o nome da coluna for igual ao objeto java não precisa colocar o name
-		private String address;
-		@Column(nullable=false, length=2)
-		private String gender;
 		
-		public Person() {
+		private Long id;
+		private String firstName;
+		private String lastName;
+		private String address;
+		private String gender;
+		public PersonVO() {
 			
 		}
 		
@@ -87,7 +73,7 @@ public class Person implements Serializable{
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			Person other = (Person) obj;
+			PersonVO other = (PersonVO) obj;
 			return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
 					&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
 					&& Objects.equals(lastName, other.lastName);
