@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import aprendizado.camilospringboot.data.vo.v1.PersonVO;
+import aprendizado.camilospringboot.data.vo.v2.PersonVOV2;
 import aprendizado.camilospringboot.exceptions.ResourceNotFoundException;
 import aprendizado.camilospringboot.mapper.DozerMapper;
+import aprendizado.camilospringboot.mapper.custom.PersonMapper;
 import aprendizado.camilospringboot.model.Person;
 import aprendizado.camilospringboot.repository.PersonRepository;
 
@@ -20,6 +22,10 @@ public class PersonServices {
 
 	@Autowired
 	PersonRepository repository;
+	
+	@Autowired
+	PersonMapper mapper;
+
 
 	public List<PersonVO> findAll() {
 
@@ -39,6 +45,15 @@ public class PersonServices {
 		logger.info("Criando pessoa");
 		var entity = DozerMapper.parseObject(person, Person.class);
 		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+
+		return vo;
+
+	}
+	public PersonVOV2 createV2(PersonVOV2 person) {
+
+		logger.info("Criando pessoa V2");
+		var entity = mapper.convertVOToEntity(person);
+		var vo = mapper.convertEntityToVO(repository.save(entity));
 
 		return vo;
 
